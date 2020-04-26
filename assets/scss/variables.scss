@@ -1,0 +1,32 @@
+// Grid variables
+$grid-columns: 6;
+$grid-columns-sm: 4;
+// Set the gutter between columns.
+$gutter-width: 3vw;
+$gutter-width-sm: 5vw;
+// Set a margin for the container sides.
+$grid-column-width: (100% / $grid-columns);
+$grid-column-width-sm: (100% / $grid-columns-sm);
+
+$max-width: 1800px;
+
+$mq-breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 980px,
+  xlg: 1200px,
+  max: 1600px
+);
+
+$margins: (
+  sm: calc(12px + 0.5vw),
+  md: calc(20px + 2vw),
+  lg: calc(60px + 3vw)
+);
+
+$off-white: #f8f6f2;
+$off-black: #151515;
+
+@function margin($key) {
+	@return map-get($margins, $key);
+}
