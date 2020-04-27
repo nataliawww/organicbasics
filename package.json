@@ -18,11 +18,11 @@
     "intersection-observer": "^0.7.0",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
+    "plyr": "^3.5.10",
     "reset-css": "^5.0.1",
     "sass-loader": "^8.0.2",
     "sass-mq": "^5.0.1",
-    "vue-images-loaded": "^1.1.2",
-    "vue-plyr": "^6.0.4"
+    "vue-images-loaded": "^1.1.2"
   },
   "devDependencies": {}
 }

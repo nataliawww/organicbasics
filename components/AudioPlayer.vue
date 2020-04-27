@@ -1,18 +1,24 @@
 <template>
-  <vue-plyr ref="plyr" :class="{'is-active': active}" class="player">
+  <div ref="plyr" :class="{'is-active': active}" class="player">
     <audio>
       <source :src="url" type="audio/mp3"/>
     </audio>
-  </vue-plyr>
+  </div>
 </template>
 
 <script>
+import Plyr from 'plyr'
 
 export default {
   name: 'AudioPlayer',
   data () {
     return {
-      active: false
+      active: false,
+      options: {
+        fullscreen: { enabled: false },
+        controls: ['play', 'progress', 'current-time', 'mute']
+      },
+      player: {}
     }
   },
   computed: {
@@ -23,7 +29,7 @@ export default {
   watch: {
     url (val) {
       this.active = true;
-      this.$refs.plyr.player.source = {
+      this.player.source = {
         type: 'audio',
         sources: [
             {
@@ -32,8 +38,11 @@ export default {
             }
         ],
       }
-      this.$refs.plyr.player.play();
+      this.player.play();
     }
+  },
+  mounted () {
+    this.player = new Plyr(this.$el.firstChild, this.options)
   }
 }
 </script>

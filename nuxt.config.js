@@ -29,7 +29,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/imagesLoaded', ssr: false },
-    { src: '~/plugins/vue-plyr'}
+    // { src: '~/plugins/vue-plyr'}
   ],
   /*
   ** Nuxt.js dev-modules
