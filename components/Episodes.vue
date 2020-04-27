@@ -1,12 +1,10 @@
 <template>
   <div class="container">
     <div v-for="(episode, index) in episodes" class="episode">
-      <!-- <div class="episode-row"> -->
       <div class="episode-number">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#f8f6f2"><circle cx="50" cy="50" r="47" fill="none" stroke="#f8f6f2" stroke-width="6" stroke-miterlimit="10"/><path d="M36 28l36 22-36 21.9z"/></svg> Episode {{ index + 1 }}
+        <svg @click="onClick(episode.url)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#f8f6f2"><circle cx="50" cy="50" r="47" fill="none" stroke="#f8f6f2" stroke-width="6" stroke-miterlimit="10"/><path d="M36 28l36 22-36 21.9z"/></svg> {{ episode.title }}
       </div>
       <div class="episode-duration">{{ episode.duration }}</div>
-      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -19,15 +17,26 @@ export default {
     return {
       episodes: [
         {
-          duration: '31 min'
+          title: 'Episode 1',
+          duration: '31 min',
+          url: 'https://dcs.megaphone.fm/RADIO9882354531.mp3?key=4bef6a5df24401945621db2542d4c453'
         },
         {
-          duration: '29 min'
+          title: 'Episode 2',
+          duration: '29 min',
+          url: 'https://dcs.megaphone.fm/RADIO7756191106.mp3?key=9ddb1af00a0ff1353f6cdbacc1282e41'
         },
         {
-          duration: ''
+          title: 'Music Interlude',
+          duration: '39 min',
+          url: 'https://dcs.megaphone.fm/RADIO8067345280.mp3?key=c9e960b74a5fa48251c96f13c1dd7b51'
         }
       ]
+    }
+  },
+  methods: {
+    onClick (url) {
+      this.$store.commit('update', url);
     }
   }
 }
@@ -52,23 +61,13 @@ export default {
     width: 30px;
     height: 30px;
     margin-right: 20px;
+    cursor: pointer;
   }
 
   &-number {
-    // @include grid-column(1);
-    // @include grid-column-skip(1);
     display: flex;
     align-items: center;
   }
 
-  // &-title {
-  //   @include grid-column(4);
-  //   display: flex;
-  //   align-items: center;
-  // }
-
-  &-duration {
-    // @include grid-column(1);
-  }
 }
 </style>
