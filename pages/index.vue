@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <div class="js-item imageey" :data-url="'/bushwick.jpg'" /> -->
     <div class="u-grid-row">
       <div class="intro">
         <h3>vi·gnette</h3>
@@ -8,7 +7,6 @@
         <h6 class="t-italic">noun</h6>
         <h6>a brief evocative description, account, or episode</h6>
       </div>
-      <!-- <div class="js-item image" :data-url="'/brooklyn.jpg'" /> -->
       <div class="text">
         <p>If everyone has a story to tell, then this borough has about 2.4 million. The following stories are unscripted, true and accompanied by music. They provide a small window into the thoughts and memories of those living in Brooklyn, New York. These are The Brooklyn Vignettes.</p>
       </div>
