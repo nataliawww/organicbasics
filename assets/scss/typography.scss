@@ -36,7 +36,7 @@ h2 {
 
 h3 {
   font-family: Monument;
-  @include fluid-type(200px, 1300px, 18px, 80px);
+  @include fluid-type(200px, 1300px, 18px, 50px);
 }
 
 h6 {
@@ -53,6 +53,10 @@ p {
 .u-grid-row {
   @include grid-row();
   position: relative;
+}
+
+.t-small {
+  @include fluid-type(200px, 1300px, 12px, 20px);
 }
 
 .t-italic {

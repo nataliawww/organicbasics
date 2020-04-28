@@ -8,7 +8,7 @@
         <h6>a brief evocative description, account, or episode</h6>
       </div>
       <div class="text">
-        <p>If everyone has a story to tell, then this borough has about 2.4 million. The following stories are unscripted, true and accompanied by music. They provide a small window into the thoughts and memories of those living in Brooklyn, New York. These are The Brooklyn Vignettes.</p>
+        <p>If everyone has a story to tell then this borough has about 2.4 million. The following stories are unscripted, true and accompanied by music. They provide a small window into the thoughts and memories of those living in Brooklyn, New York. These are The Brooklyn Vignettes.</p>
       </div>
     </div>
     <div class="u-grid-row">
@@ -19,8 +19,9 @@
     </h1>
     <div class="u-grid-row">
       <div class="about">
-        <p>The Brooklyn Vignettes is a monthly podcast produced by me, Fraser Tye*, for Radio Free Brooklyn. The show provides brief, unscripted moments usually given by strangers who I approach in public. Other times, they are moments provided by friends of mine, or people I've met online. Due to the current COVID-19 virus, these are being recorded over the phone and not in person. As always however, they are told by those living in this weird and wonderful place we call home, Brooklyn, NY.  </p>
-        <p>* Production help from Evan Crafford with special thanks to Søren Elbek</p>
+        <p>The Brooklyn Vignettes is a monthly podcast produced by me, Fraser Tye*, for Radio Free Brooklyn. The show provides brief, unscripted moments usually given by strangers who I approach in public. Other times, they are moments provided by friends of mine, or people I've met online. </p>
+        <p>Due to the current COVID-19 virus, these are being recorded over the phone and not in person. As always however, they are told by those living in this weird and wonderful place we call home, Brooklyn, NY.  </p>
+        <p class="t-small">* Production help from Evan Crafford with special thanks to Søren Elbek</p>
       </div>
     </div>
   </div>
@@ -83,10 +84,6 @@ export default {
   mix-blend-mode: difference;
   margin-top: margin(md);
   margin-bottom: margin(lg);
-  // p {
-  //   @include fluid-type(200px, 1300px, 12px, 20px);
-  // }
-  // text-align: center;
 }
 
 .episodes {
