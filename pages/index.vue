@@ -1,101 +1,173 @@
 <template>
   <div>
-    <div class="u-grid-row">
-      <div class="intro">
-        <h3>vi·gnette</h3>
-        <h6>/vinˈyet/</h6>
-        <h6 class="t-italic">noun</h6>
-        <h6>a brief evocative description, account, or episode</h6>
-      </div>
-      <div class="text">
-        <p>If everyone has a story to tell then this borough has about 2.4 million. The following stories are unscripted, true and accompanied by music. They provide a small window into the thoughts and memories of those living in Brooklyn, New York. These are The Brooklyn Vignettes.</p>
-      </div>
+    <div class="logo">
+      <Logo />
     </div>
-    <div class="u-grid-row">
-      <Episodes class="episodes"/>
-    </div>
-    <h1 class="title">
-      NEW SHOWS ADDED MONTHLY NEW SHOWS ADDED MONTHLY
-    </h1>
-    <div class="u-grid-row">
-      <div class="about">
-        <p>The Brooklyn Vignettes is a monthly podcast produced by me, Fraser Tye*, for Radio Free Brooklyn. The show provides brief, unscripted moments usually given by strangers who I approach in public. Other times, they are moments provided by friends of mine, or people I've met online. </p>
-        <p>Due to the current COVID-19 virus, these are being recorded over the phone and not in person. As always however, they are told by those living in this weird and wonderful place we call home, Brooklyn, NY.  </p>
-        <p class="t-small">* Production help from Evan Crafford with special thanks to Søren Elbek</p>
+    <div class="filter">
+      <p class="filter-title">Filter by size: </p>
+      <div class="filter-row">
+        <div
+          @click="onTabClick(size.name, 'size', index)"
+          v-for="(size, index) in filters.size"
+          :key="index"
+          :class="{'is-active': size.active}"
+          class="filter-tab">
+          <p>{{ size.name }}</p>
+        </div>
       </div>
     </div>
+    <div class="filter">
+      <p class="filter-title">Filter by color: </p>
+      <div class="filter-row">
+        <div v-for="(color, index) in filters.color" :key="'color-' + index"  :class="{'is-active': color.active}"class="filter-tab">
+          <p @click="onTabClick(color.name, 'color', index)">{{ color.name }}</p>
+        </div>
+      </div>
+    </div>
+    <transition-group name="fade" class="products">
+      <div v-for="(item, index) in products" :key="'product' + index" class="products-item">
+        <Item :data="item"/>
+      </div>
+    </transition-group>
   </div>
 </template>
 
 <script>
-import { TimelineLite } from 'gsap'
-import Episodes from '~/components/Episodes'
-import transitions from '~/mixins/transitions'
+import Item from '~/components/Item';
+import Logo from '~/assets/svg/logo.svg';
+import * as CONSTANTS from '~/assets/js/constants'
+
 export default {
-  mixins: [transitions],
   components: {
-    Episodes
+    Item,
+    Logo
+  },
+  data () {
+    return {
+      toggle: false,
+      filters: {
+        size: [
+          { name: 'XS'},
+          { name: 'S'},
+          { name: 'M'},
+          { name: 'L'},
+          { name: 'XL'}
+        ],
+        color: [
+          { name: 'Black'},
+          { name: 'Rose Nude'},
+          { name: 'Navy'},
+          { name: 'White'},
+          { name: 'Grey'}
+        ]
+      },
+      query: {
+        color: CONSTANTS.color,
+        size: CONSTANTS.size,
+      },
+      activeState: {
+        color: false,
+        size: false
+      }
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  },
+  methods: {
+    onTabClick(value, key, index) {
+      this.toggleTabState(key, index)
+      this.setFilterActive(key);
+      this.filterProducts(value, key)
+      if (this.activeState[key] && this.query[key].length < 1) {
+        this.resetQuery(key)
+      }
+      this.$store.commit('filter', {sizes: this.query.size, colors: this.query.color})
+      
+    },
+    filterProducts (value, key) {
+      if (this.query[key].includes(value)) {
+        this.query[key] = this.query[key].filter(item => item !== value)
+      } else {
+        this.query[key].push(value)
+      }
+    },
+    toggleTabState(key, index) {
+      let item = this.filters[key][index];
+      item.active = !item.active;
+    },
+    setFilterActive(key) {
+      if (!this.activeState[key]) this.query[key] = [];
+      this.activeState[key] = true;
+    },
+    resetQuery(key) {
+      console.log('reset')
+      this.query[key] = CONSTANTS[key];
+      this.activeState[key] = false
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-
-.title {
-  position: relative;
-  text-transform: uppercase;
-  // font-size: 9vw;
-  margin-bottom: margin(lg);
-  mix-blend-mode: difference;
-  color: transparent;
-  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: $off-white;
-  white-space: nowrap;
-  left: -10%;
-  animation: move 80s linear infinite alternate; 
-}
-
-.text {
-  @include mq($from: lg) {
-    @include grid-column(3.5);
-    @include grid-column-skip(0.5);
+.logo {
+  margin-bottom: $gutter-width;
+  svg {
+    width: 150px;
   }
-  position: relative;
-  mix-blend-mode: difference;
-  margin-top: margin(md);
-  margin-bottom: margin(lg);
-}
-
-.intro {
-  @include mq($from: lg) {
-    @include grid-column(3.5);
-    @include grid-column-skip(0.5);
+  @include mq($from:md) {
+    text-align: center;
+    svg {
+      width: 250px;
+    }
   }
-  margin-top: margin(lg);
 }
 
-.about {
-  @include mq($from: lg) {
-    @include grid-column(4);
-    @include grid-column-skip(1);
+.filter {
+  
+  margin-bottom: 10px;
+
+  @include mq($from:md) {
+    display: flex;
   }
-  position: relative;
-  mix-blend-mode: difference;
-  margin-top: margin(md);
-  margin-bottom: margin(lg);
-}
 
-.episodes {
-  @include mq($from: lg) {
-    @include grid-column(4);
-    @include grid-column-skip(1);
+  &-row {
+    display: flex;
+    @include mq($until:md) {
+      margin-left: -12px;
+    }
   }
-  margin-bottom: margin(lg);
+  
+  &-title {
+    @include mq($until:md) {
+      font-size: 12px;
+    }
+  }
+
+  &-tab {
+    padding: 0 10px;
+    margin: 0 2px;
+    cursor: pointer;
+
+    &.is-active {
+      background: $off-black;
+      color: $off-white;
+    }
+  }
 }
 
-@keyframes move {
-  from {transform: translateX(0);}
-  to {transform: translateX(-100%);}
+.products { 
+  @include grid-row();
+  display: block;
+  margin-top: 30px;
+
+  &-item {
+    @include grid-column(2);
+    @include mq($from: md) {
+      @include grid-column(3);
+    }
+  }
 }
 </style>

@@ -18,15 +18,6 @@ $mq-breakpoints: (
   max: 1600px
 );
 
-$margins: (
-  sm: calc(12px + 0.5vw),
-  md: calc(20px + 2vw),
-  lg: calc(60px + 3vw)
-);
-
-$off-white: #f8f6f2;
+$off-white: #ffffff;
 $off-black: #151515;
-
-@function margin($key) {
-	@return map-get($margins, $key);
-}
+$grey: #a1a4a9;

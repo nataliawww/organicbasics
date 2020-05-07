@@ -1,6 +1,6 @@
-# brooklyn-vignettes
+# organic-basics
 
-> Brooklyn Vignettes podcast
+> OB frontend test
 
 ## Build Setup
 

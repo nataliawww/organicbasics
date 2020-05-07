@@ -1,59 +1,62 @@
 <template>
-  <div v-images-loaded.on.done="onImagesLoaded">
-    <SmoothScroll :is-loaded="imagesLoaded">
+  <div>
+    <SmoothScroll>
       <div class="main">
-        <Navigation />
         <nuxt />
         <GridTester v-if="showGrid"/>
       </div>
     </SmoothScroll>
-    <AudioPlayer />  
+    <Cart />
   </div>
 </template>
 
 <script>
-import AudioPlayer from '~/components/AudioPlayer'
 import GridTester from '~/components/GridTester'
-import Navigation from '~/components/Navigation'
+import Cart from '~/components/Cart'
 import SmoothScroll from '~/components/SmoothScroll.vue'
 
 export default {
   components: {
-    AudioPlayer,
     GridTester,
-    Navigation,
+    Cart,
     SmoothScroll
   },
   data () {
     return {
       showGrid: false,
-      imagesLoaded: false
     }
   },
-  transition: 'page',
   mounted () {
     this.showGrid = (window.location.hash === '#grid')
-    this.imagesLoaded = true
-  },
-  methods: {
-    onImagesLoaded (img) {
-      this.imagesLoaded = true
-    }
   }
 }  
 </script>
 
 <style lang="scss">
-
-html, body {
-  background: $off-black;
-  color: $off-white;
-}
 .main {
   position: relative;
   padding: $gutter-width-sm;
   @include mq($from: md) {
     padding: $gutter-width;
+  }
+}
+.slide-enter-active, .slide-leave-active {
+  transition: transform 800ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.slide-enter, .slide-leave-to {
+  transform: translateX(100%);
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 400ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.lazy-image {
+  opacity: 0;
+  transition: 500ms opacity cubic-bezier(0.65, 0, 0.35, 1);
+  &[lazy=loaded] {
+    opacity: 1;
   }
 }
 </style>

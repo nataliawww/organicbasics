@@ -1,4 +1,3 @@
-import { TimelineLite } from "gsap";
 
 export default {
   mode: 'universal',
@@ -6,7 +5,7 @@ export default {
   ** Headers of the page
   */
   head: {
-    title:  'The Brooklyn Vignettes',
+    title:  'Organic Basics',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -28,8 +27,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/imagesLoaded', ssr: false },
-    // { src: '~/plugins/vue-plyr'}
+    {src: '~/plugins/vue-lazyload.js'},
+    {src: '~/plugins/vuex-persist', ssr: false}
   ],
   /*
   ** Nuxt.js dev-modules
@@ -73,7 +72,17 @@ export default {
                         @import "~sass-mq/mq";
                         @import "~/assets/scss/mixins.scss";`
         }
-      })
+      });
+      const svgRule = config.module.rules.find(rule => rule.test.test('.svg'));
+      svgRule.test = /\.(png|jpe?g|gif|webp)$/;
+ 
+      config.module.rules.push({
+        test: /\.svg$/,
+        use: [
+          'babel-loader',
+          'vue-svg-loader',
+        ],
+      });
     }
   }
 }
